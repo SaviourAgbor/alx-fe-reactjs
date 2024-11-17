@@ -1,26 +1,18 @@
-import { useState } from 'react'
-import './App.css'
-import Footer from './components/Footer'
-import Header from './components/Header'
-import MainContent from './components/MainContent'
-import UserProfile from './components/UserProfile'
-import WelcomeMessage from './components/WelcomeMessage'
-import Counter from './components/Counter'
+import ProfilePage from './profilePage';
+import UserContext from './userContext';
+import React, { useState } from 'react';
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const userData = useState({ name: "Jane Doe", email: "jane.doe@example.com" });
+  
   return (
-    <>
-      <WelcomeMessage />
-      <Header />
-      <MainContent />
-      <Footer />
-      <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />    
-      <Counter />
-    </>
-      
-  )
+  <>
+    <UserContext.Provider value={{userData}}>
+      <ProfilePage />
+    </UserContext.Provider>
+  </>
+  );
 }
 
-export default App
+export default App;
