@@ -1,5 +1,4 @@
-import React from "react";
-import UserDetails from "./userDetails";
+import UserDetails from './userDetails';
 
 function UserInfo() {
   return <UserDetails />;
