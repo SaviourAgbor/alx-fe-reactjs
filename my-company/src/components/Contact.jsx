@@ -18,7 +18,7 @@ import { useState } from 'react';
 
      return (
        <div style={{ padding: "20px" }}>
-         <h1>Contact Us</h1>
+         <h1 style={{ color: "cyan"}}>Contact Us</h1>
          <form onSubmit={handleSubmit}>
             <div>
               <label>Name:</label>
@@ -28,7 +28,7 @@ import { useState } from 'react';
               placeholder="Your Name"
               value={formData.name}
               onChange={handleChange}
-              style={{ display: 'block', margin: '10px 0' }}
+              style={{ display: 'block', margin: '10px 0', padding: "0.7em", width: "20em", fontSize:"1em"}}
               required
             />
             </div>
@@ -40,7 +40,7 @@ import { useState } from 'react';
               placeholder="Your Email"
               value={formData.email}
               onChange={handleChange}
-              style={{ display: 'block', margin: '10px 0' }}
+              style={{ display: 'block', margin: '10px 0', padding: '0.7em ', width: "20em", fontSize:"1em" }}
               required
             />
            </div>
@@ -51,10 +51,10 @@ import { useState } from 'react';
               placeholder="Your Message"
               value={formData.message}
               onChange={handleChange}
-              style={{ display: 'block', margin: '10px 0' }}
+              style={{ display: 'block', margin: '10px 0', padding: "0.7em", fontSize: "1.5em", width: "20em", height: "10em"}}
             />
            </div>
-           <button type="submit">Send Message</button>
+           <button type="submit" style={{ backgroundColor: "rgba(52, 225, 235, 0.7)", color: "#000", fontWeight: "900", marginTop: "1em"}}>Send Message</button>
          </form>
        </div>
      );
