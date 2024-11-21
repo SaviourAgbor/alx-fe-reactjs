@@ -11,16 +11,15 @@ function App() {
   return (
     <BrowserRouter>
     <Navbar />
-    <div style={{ minHeight: "80vh"}}>
+    <div style={{ maxWidth: "100vw", boxSizing: "border-box"}}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
-      <Footer />
     </div>
-    
+    <Footer />
     </BrowserRouter>
   );
 }
