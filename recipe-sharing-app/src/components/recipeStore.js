@@ -3,6 +3,7 @@ import create from "zustand";
 const useRecipeStore = create((set) => ({
   recipes: [],
   searchTerm: "",
+  setRecipes: (newRecipes) => set(() => ({ recipes: newRecipes })), // Add setRecipes method
   setSearchTerm: (term) => {
     set((state) => {
       const filtered = state.recipes.filter((recipe) =>
@@ -45,4 +46,5 @@ const useRecipeStore = create((set) => ({
       return { recommendations: recommended };
     }),
 }));
+
 export default useRecipeStore;
