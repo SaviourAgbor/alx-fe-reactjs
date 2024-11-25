@@ -1,13 +1,13 @@
 // App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import RecipeList from "./components/RecipeList";
-import AddRecipeForm from "./components/AddRecipeForm";
-import RecipeDetails from "./components/RecipeDetails";
-import EditRecipeForm from "./components/EditRecipeForm";
-import SearchBar from "./components/SearchBar";
-import FavoritesList from "./components/FavoritesList";
-import RecommendationsList from "./components/RecommendationsList";
+import RecipeList from "./RecipeList";
+import AddRecipeForm from "./AddRecipeForm";
+import RecipeDetails from "./RecipeDetails";
+import EditRecipeForm from "./EditRecipeForm";
+import SearchBar from "./SearchBar";
+import FavoritesList from "./FavoritesList";
+import RecommendationsList from "./RecommendationsList";
 
 function App() {
   return (
