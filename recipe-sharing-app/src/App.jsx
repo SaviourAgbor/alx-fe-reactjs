@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import RecipeList from "./components/RecipeList";
+import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import AddRecipeForm from "./components/AddRecipeForm";
-import RecipeDetails from "./components/RecipeDetails";
 import EditRecipeForm from "./components/EditRecipeForm";
+import FavoritesList from "./components/FavoritesList";
+import RecipeDetails from "./components/RecipeDetails";
+import RecipeList from "./components/RecipeList";
 import SearchBar from "./components/SearchBar";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <SearchBar />
         <Routes>
           <Route path="/" element={<RecipeList />} />
+          <Route path="/favorites" element={<FavoritesList />} />
           <Route path="/" element={<RecipeList />} />
           <Route path="/add" element={<AddRecipeForm />} />
           <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
