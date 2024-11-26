@@ -1,43 +1,41 @@
-// App.js
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import RecipeList from "./RecipeList";
-import AddRecipeForm from "./AddRecipeForm";
-import RecipeDetails from "./RecipeDetails";
-import EditRecipeForm from "./EditRecipeForm";
-import SearchBar from "./SearchBar";
-import FavoritesList from "./FavoritesList";
-import RecommendationsList from "./RecommendationsList";
+import React, { useEffect } from "react";
+import useRecipeStore from "./recipeStore";
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        {/* Navigation links */}
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/add">Add Recipe</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* Routes */}
-        <SearchBar />
-        <Routes>
-          <Route path="/" element={<RecipeList />} />
-          <Route path="/favorites" element={<FavoritesList />} />
-          <Route path="/" element={<RecipeList />} />
-          <Route path="/add" element={<AddRecipeForm />} />
-          <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
-          <Route path="/edit/:recipeId" element={<EditRecipeForm />} />
-        </Routes>
-      </div>
-    </Router>
+const RecommendationsList = () => {
+  const recommendations = useRecipeStore((state) => state.recommendations);
+  const generateRecommendations = useRecipeStore(
+    (state) => state.generateRecommendations
   );
-}
 
-export default App;
+  // Generate recommendations when the component is mounted
+  useEffect(() => {
+    generateRecommendations();
+  }, [generateRecommendations]);
+
+  return (
+    <div>
+      <h2>Recommended for You</h2>
+      {recommendations.length > 0 ? (
+        recommendations.map((recipe) => (
+          <div
+            key={recipe.id}
+            style={{
+              border: "1px solid #ccc",
+              margin: "10px",
+              padding: "10px",
+            }}>
+            <h3>{recipe.title}</h3>
+            <p>{recipe.description}</p>
+          </div>
+        ))
+      ) : (
+        <p>
+          No recommendations available! Add some favorites to see personalized
+          suggestions.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default RecommendationsList;
