@@ -1,11 +1,11 @@
 import './App.css'
+import UserProfile from './components/UserProfile'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>This is myproject.</h1>
+      <UserProfile />
     </>
   )
 }
