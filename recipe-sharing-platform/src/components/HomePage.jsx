@@ -1,54 +1,42 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-function HomePage() {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+import {useState, useEffect} from "react";
 
-  useEffect(() => {
-    const fetchRecipe = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/recipes");
-        if (!response.ok) {
-          throw new Error("HTTP request error");
-        }
-        const data = await response.json();
-        setData(data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        setError(error.message);
-      }
-    };
+function Homepage() {
+    const [recipes, setRecipes] = useState([]);
 
-    fetchRecipe();
-  }, []);
-
-  if (error) {
-    return <h2>{error}</h2>; // Ensure the error condition returns JSX.
-  }
-
-  if (isLoading) {
-    return <h2>Loading ...</h2>; // Ensure the loading state also returns JSX.
-  }
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                const response = await fetch('./data.json');
+                const data = await response.json();
+                setRecipes(data);
+            } catch (error) {
+                console.error("Error fetching recipes", error);
+            }  
+        };
+        fetchRecipes();
+    }, []);
 
   return (
-    <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-4">
-      {data.map((recipe) => (
-        <Link key={recipe.id} to={`/recipedetails/${recipe.id}`}>
-          <div className="shadow-md">
+    <div className="p-4 sm:p-6 md:p-8 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {recipes.map((recipe, index) => (
+        <div
+            key={index}
+            className="bg-white rounded-lg shadow-md p-4 sm:p-6 md:p-8 hover:shadow-xl transition-shadow duration-300 ease-in-out"
+        >
             <img
-              src={recipe.image}
-              alt=""
-              className="w-full object-contain md:hover:scale-105"
+            src={recipe.image}
+            alt={recipe.title}
+            className="w-full h-48 sm:h-64 md:h-48 object-cover rounded-t-lg"
             />
-            <h2 className="font-bold text-lg mx-auto">{recipe.title}</h2>
-            <p className="p-4">{recipe.summary}</p>
-          </div>
-        </Link>
-      ))}
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mt-2">
+            {recipe.title}
+            </h2>
+            <p className="text-gray-600 text-base sm:text-lg">{recipe.summary}</p>
+        </div>
+        ))}
+        <h2>recipe Homepage</h2>
     </div>
   );
 }
 
-export default HomePage;
+export default Homepage;
