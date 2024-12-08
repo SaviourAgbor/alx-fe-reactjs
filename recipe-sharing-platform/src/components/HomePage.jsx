@@ -1,42 +1,62 @@
-import React, {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import axios from "axios"; // Import axios for making requests
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
-function HomePage() {
-    const [recipes, setRecipes] = useState([]);
+const HomePage = () => {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchRecipes = async () => {
-            try {
-                const response = await fetch('./data.json');
-                const data = await response.json();
-                setRecipes(data);
-            } catch (error) {
-                console.error("Error fetching recipes", error);
-            }  
-        };
-        fetchRecipes();
-    }, []);
+  // Load the mock data from the data.json file
+  useEffect(() => {
+    axios
+      .get("/src/data.json") // Path to your data.json file
+      .then((res) => {
+        setData(res.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (error) {
+    return <h2>{error}</h2>;
+  }
 
   return (
-    <div className="p-4 sm:p-6 md:p-8 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {recipes.map((recipe, index) => (
-        <div
-            key={index}
-            className="bg-white rounded-lg shadow-md p-4 sm:p-6 md:p-8 hover:shadow-xl transition-shadow duration-300 ease-in-out"
-        >
+    <div className="container mx-auto p-5">
+      {/* Use Tailwind's responsive grid classes */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        {data.map((recipe) => (
+          <div
+            key={recipe.id}
+            className="bg-white p-4 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300"
+          >
             <img
-            src={recipe.image}
-            alt={recipe.title}
-            className="w-full h-48 sm:h-64 md:h-48 object-cover rounded-t-lg"
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-40 object-cover rounded-lg mb-4"
             />
-            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mt-2">
-            {recipe.title}
-            </h2>
-            <p className="text-gray-600 text-base sm:text-lg">{recipe.summary}</p>
-        </div>
+            <h3 className="text-lg font-semibold mb-2">{recipe.title}</h3>
+            <p className="text-gray-600 text-sm">{recipe.summary}</p>
+            {/* Link to the Recipe Detail Page */}
+            <Link
+              to={`/recipe/${recipe.id}`}
+              className="text-blue-500 hover:underline mt-2 inline-block"
+            >
+              View Recipe
+            </Link>
+          </div>
         ))}
-        <h2>recipe Homepage</h2>
+      </div>
     </div>
   );
-}
+};
 
 export default HomePage;
